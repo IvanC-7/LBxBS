@@ -3,9 +3,9 @@ import requests
 import sys
 import re
 
-listurl = 'https://letterboxd.com/ivan0716/list/latin-america-ranked/'
+listurl = 'https://letterboxd.com/ivan0716/list/2022-ranked/'
 
-get_rating = False
+get_rating = True
 get_rank = True
 
 if len(sys.argv) == 2:
@@ -47,26 +47,20 @@ while list_page < 100:
         aka = film_info.find('em')
         dir = film_info.find('span').get_text()
 
-        if get_rating:
-            if aka is not None:
-                if get_rank:
-                    print(str(rank), end = '. ')
+        if aka is not None:
+            if get_rank:
+                print(str(rank), end = '. ')
+            if get_rating:
                 print(title+' ['+aka.get_text().replace('’', '').replace('‘', '')+'] ('+year+', '+dir+')  '+str(ratings[rating_idx].get_text()))
             else:
-                if get_rank:
-                    print(str(rank), end = '. ')
-                print(title+' ('+year+', '+dir+')  '+str(ratings[rating_idx].get_text()))
-        else:
-            if aka is not None:
-                if get_rank:
-                    print(str(rank), end = '. ')
                 print(title+' ['+aka.get_text().replace('’', '').replace('‘', '')+'] ('+year+', '+dir+')  ')
+        else:
+            if get_rank:
+                print(str(rank), end = '. ')
+            if get_rating:
+                print(title+' ('+year+', '+dir+')  '+str(ratings[rating_idx].get_text()))
             else:
-                if get_rank:
-                    print(str(rank), end = '. ')
                 print(title+' ('+year+', '+dir+')  ')
-
-
 
         rank += 1
         rating_idx += 1
