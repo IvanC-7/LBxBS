@@ -3,9 +3,10 @@ import requests
 import sys
 import re
 
-listurl = 'https://letterboxd.com/ivan0716/list/2021-ranked/'
+listurl = 'https://letterboxd.com/ivan0716/list/latin-america-ranked/'
 
-get_rating = True
+get_rating = False
+get_rank = True
 
 if len(sys.argv) == 2:
     listurl = ''+sys.argv[1]+''
@@ -48,14 +49,22 @@ while list_page < 100:
 
         if get_rating:
             if aka is not None:
-                print(str(rank)+'. '+title+' ['+aka.get_text().replace('’', '').replace('‘', '')+'] ('+year+', '+dir+')  '+str(ratings[rating_idx].get_text()))
+                if get_rank:
+                    print(str(rank), end = '. ')
+                print(title+' ['+aka.get_text().replace('’', '').replace('‘', '')+'] ('+year+', '+dir+')  '+str(ratings[rating_idx].get_text()))
             else:
-                print(str(rank)+'. '+title+' ('+year+', '+dir+')  '+str(ratings[rating_idx].get_text()))
+                if get_rank:
+                    print(str(rank), end = '. ')
+                print(title+' ('+year+', '+dir+')  '+str(ratings[rating_idx].get_text()))
         else:
             if aka is not None:
-                print(str(rank)+'. '+title+' ['+aka.get_text().replace('’', '').replace('‘', '')+'] ('+year+', '+dir+')  ')
+                if get_rank:
+                    print(str(rank), end = '. ')
+                print(title+' ['+aka.get_text().replace('’', '').replace('‘', '')+'] ('+year+', '+dir+')  ')
             else:
-                print(str(rank)+'. '+title+' ('+year+', '+dir+')  ')
+                if get_rank:
+                    print(str(rank), end = '. ')
+                print(title+' ('+year+', '+dir+')  ')
 
 
 
